@@ -4,7 +4,20 @@ const app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'US Music Festivals API';
-app.locals.states = [];
+app.locals.states = [
+  {
+    state: 'Arizona',
+    number_of_music_festivals: 10,
+    major_airport: 'Phoenix Sky Harbor International Airport',
+    tourism_website: 'https://www.visitarizona.com'
+  },
+  {
+    state: 'California',
+    number_of_music_festivals: 38,
+    major_airport: 'Los Angeles International Airport',
+    tourism_website: 'https://www.visitcalifornia.com'
+  }
+];
 app.locals.festivals = {};
 
 app.get('/', (request, response) => {
@@ -13,6 +26,9 @@ app.get('/', (request, response) => {
 
 app.get('/api/v1/states', (request, response) => {
   // get all states
+  const { states } = app.locals;
+  return response.status(200).json(states)
+
 });
 
 app.post('/api/v1/states', (request, response) => {
