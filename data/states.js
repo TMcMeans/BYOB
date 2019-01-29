@@ -1,4 +1,3 @@
-// all the states
 const states = [
   {
     state: 'Arizona',
@@ -127,3 +126,6 @@ const states = [
     tourism_website: 'https://www.travelwisconsin.com'
   }
 ]
+
+
+module.exports = states;
