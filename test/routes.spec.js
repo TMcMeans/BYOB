@@ -19,10 +19,18 @@ describe('Client Routes', () => {
       response.should.be.html;
       response.res.text.should.equal('US Music Festivals API');
       done();
-    })
+    });
+  });
 
-
-  })
+    // sad path
+    it('should return 404 for nonexisting routes', done => {
+      chai.request(server)
+      .get('/sad')
+      .end((err, response) => {
+        response.should.have.status(404)
+        done();
+      });
+    });
 });
 
 describe('API Routes', () => {
@@ -38,4 +46,6 @@ describe('API Routes', () => {
    server.locals.festivals = festivals;
    done();
   });
+
+  
 })
