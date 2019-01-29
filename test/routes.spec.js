@@ -47,5 +47,61 @@ describe('API Routes', () => {
    done();
   });
 
-  
+  describe('/api/v1/states', () => {
+    it('should GET all states', done => {
+
+    });
+
+    it('should POST to states', done => {
+
+    });
+
+    it('should return a 422 error', done => {
+
+    })
+  });
+
+  describe('/api/v1/festivals', () => {
+    it('should GET all festivals', done => {
+
+    });
+
+    it('should POST to festivals', done => {
+
+    });
+
+    it('should return a 422 error', done => {
+
+    })
+  });
+
+  describe('/api/v1/states/:stateID', () => {
+    it('should PATCH a state by id', done => {
+
+    });
+
+    it('should DELETE a state by id', done => {
+
+    })
+  });
+
+  describe('/api/v1/states/:stateID/festivals', () => {
+    it('should GET all festivals by a state', done => {
+
+    })
+  });
+
+  describe('/api/v1/festivals/:festivalID', () => {
+    it('should GET all festivals', done => {
+
+    });
+
+    it('should PATCH to festivals', done => {
+
+    });
+
+    it('should DELETE a festival by id', done => {
+
+    })
+  });
 })
