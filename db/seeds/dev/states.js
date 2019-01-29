@@ -38,7 +38,6 @@ exports.seed = (knex, Promise) => {
       let statePromises = [];
 
       states.forEach(state => {
-        console.log(state)
         statePromises.push(createState(knex, state));
       });
       return Promise.all(statePromises);

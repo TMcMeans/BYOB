@@ -210,7 +210,7 @@ const festivals = {
     { festival_name: 'Floydfest', start_end_dates: '7/24/19-7/28/19', city: 'FLoyd', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2015/03/FloydFest-Andy-Cox-600x400.jpg' },
     { festival_name: 'Lockn\' Festival', start_end_dates: '8/22/19-8/25/19', city: 'Arrington', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2009/12/Vito-Valentinetti-10000-Lakes-2009-69-600x400.jpg' }
   ],
-  '': [
+  'Washington': [
     { festival_name: 'Paradiso Festival', start_end_dates: '6/14/19-6/15/19', city: 'George', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/Paradiso-Hero-Pic-600x400.jpg' },
     { festival_name: 'Capitol Hill Block Part', start_end_dates: '7/19/19-7/21/19', city: 'Seattle', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2016/12/CHBP-2014-ASAP-Ferg-Crowd-Surf-600x400.jpg' },
     { festival_name: 'Summer Meltdown', start_end_dates: '8/1/19-8/4/19', city: 'Darrington', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/PonceDeLeon_Meltdown2016_River-150-of-168-copy-600x400.jpg' },
