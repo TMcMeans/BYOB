@@ -62,12 +62,46 @@ describe('API Routes', () => {
         })
     });
 
+    //happy path
     it('POST should create a new state', done => {
-
+      chai.request(server)
+        .post('/api/v1/states')
+        .send({
+          state: 'New Jersey',
+          number_of_music_festivals: 5,
+          major_airport: 'Newark Liberty International Airport',
+          tourism_website: 'https://www.visitnj.org'
+        })
+        .end((err, response) => {
+          response.should.have.status(201);
+          response.body.should.be.a('object');
+          response.body.should.have.property('state');
+          response.body.state.should.equal('New Jersey');
+          response.body.should.have.property('number_of_music_festivals');
+          response.body.number_of_music_festivals.should.equal(5);
+          response.body.should.have.property('major_airport');
+          response.body.major_airport.should.equal('Newark Liberty International Airport');
+          response.body.should.have.property('tourism_website');
+          response.body.tourism_website.should.equal('https://www.visitnj.org');
+          done();
+        })
     });
 
-    // it('POST should return a 422 error', done => {
-
+    //sad path
+    // it('POST should return a 422 error when creating a new state', done => {
+    //   chai.request(server)
+    //     .post('/api/v1/states')
+    //     .send({
+    //       state: 'New Jersey',
+    //       number_of_music_festivals: 5,
+    //       major_airport: 'Newark Liberty International Airport'
+    //       //missing tourism website data
+    //     })
+    //     .end((err, response) => {
+    //       response.should.have.status(422);
+    //       response.body.error.should.equal('');
+    //       done();
+    //     });
     // });
   });
 

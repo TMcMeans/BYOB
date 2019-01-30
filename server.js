@@ -4,21 +4,8 @@ const app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'US Music Festivals API';
-app.locals.states = [
-  {
-    state: 'Arizona',
-    number_of_music_festivals: 10,
-    major_airport: 'Phoenix Sky Harbor International Airport',
-    tourism_website: 'https://www.visitarizona.com'
-  },
-  {
-    state: 'California',
-    number_of_music_festivals: 38,
-    major_airport: 'Los Angeles International Airport',
-    tourism_website: 'https://www.visitcalifornia.com'
-  }
-];
-app.locals.festivals = {};
+
+app.use(bodyParser.json())
 
 app.get('/', (request, response) => {
   response.send(`${app.locals.title}`)
@@ -26,15 +13,27 @@ app.get('/', (request, response) => {
 
 app.get('/api/v1/states', (request, response) => {
   // get all states
-  const { states } = app.locals;
+  const states = app.locals.states;
   return response.status(200).json(states)
 
 });
 
 app.post('/api/v1/states', (request, response) => {
-  //Post a state to all states
-  //Create happy and sad paths
-})
+  //Create a state
+  const state = request.body;
+
+  //sad path
+  for (let requiredParam of ['state', 'number_of_music_festivals', 'major_airport', 'tourism_website']) {
+
+    if (!state[requiredParam]) {
+      return response.status(422).send({ error: `Expected format: {  state: <string>, number_of_music_festivals: <string>, color_3: <number>, major_airport: <string>, tourism_website: <string> }. You're missing a "${requiredParameter}" property.` })
+    } else {
+      //happy path
+      app.locals.states.push(state);
+      return response.status(201).json(state);
+    }
+  }
+});
 
 app.get('/api/v1/festivals', (request, response) => {
   // get all festivals
