@@ -8,8 +8,6 @@ const festivals = require('../data/festivals.js');
 chai.use(chaiHttp);
 
 describe('Client Routes', () => {
-  // front end
-
   // happy path
   it('should return the homepage with text', done => {
     chai.request(server)
@@ -87,58 +85,58 @@ describe('API Routes', () => {
         })
     });
 
-    //sad path
-    // it('POST should return a 422 error when creating a new state', done => {
-    //   chai.request(server)
-    //     .post('/api/v1/states')
-    //     .send({
-    //       state: 'New Jersey',
-    //       number_of_music_festivals: 5,
-    //       major_airport: 'Newark Liberty International Airport'
-    //       //missing tourism website data
-    //     })
-    //     .end((err, response) => {
-    //       response.should.have.status(422);
-    //       response.body.error.should.equal('');
-    //       done();
-    //     });
-    // });
+    // sad path
+    it('POST should return a 422 error when creating a new state', done => {
+      chai.request(server)
+        .post('/api/v1/states')
+        .send({
+          state: 'New Jersey',
+          number_of_music_festivals: 5,
+          major_airport: 'Newark Liberty International Airport'
+          //tourism_website information is missing
+        })
+        .end((err, response) => {
+          response.should.have.status(422);
+          response.body.error.should.equal('You are missing data! Expected format: {  state: <string>, number_of_music_festivals: <number>, major_airport: <string>, tourism_website: <string> }');
+          done();
+        });
+    });
   });
 
   // describe('/api/v1/festivals', () => {
-  //   it('should GET all festivals', done => {
+  //   it('GET should return all festivals', done => {
 
   //   });
 
-  //   it('should POST to festivals', done => {
+  //   it('POST should create a festival', done => {
 
   //   });
 
-  //   it('POST should return a 422 error', done => {
+  //   it('POST should return a 422 error when creating a new festival', done => {
 
   //   });
   // });
 
   // describe('/api/v1/states/:stateID', () => {
-  //   it('should PATCH a state by id', done => {
+  //   it('PATCH should update a state's data', done => {
 
   //   });
 
-  //   it('PATCH should return a 404 error', () => {
+  //   it('PATCH should return a 404 error if state is not found in database', () => {
 
   //   });
 
-  //   it('should DELETE a state by id', done => {
+  //   it('DELETE should delete a state', done => {
 
   //   });
 
-  //   it('DELETE should return a 404 error', () => {
+  //   it('DELETE should return a 404 error if state is not found', () => {
 
   //   });
   // });
 
   // describe('/api/v1/states/:stateID/festivals', () => {
-  //   it('should GET all festivals by a state', done => {
+  //   it('GET should return all festivals by state', done => {
 
   //   });
 
@@ -148,7 +146,7 @@ describe('API Routes', () => {
   // });
 
   // describe('/api/v1/festivals/:festivalID', () => {
-  //   it('should GET a festival by id', done => {
+  //   it('GET should return a festival by id', done => {
 
   //   });
 

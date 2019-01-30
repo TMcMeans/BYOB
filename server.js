@@ -22,16 +22,19 @@ app.post('/api/v1/states', (request, response) => {
   //Create a state
   const state = request.body;
 
-  //sad path
-  for (let requiredParam of ['state', 'number_of_music_festivals', 'major_airport', 'tourism_website']) {
+  let result = ['state', 'number_of_music_festivals', 'major_airport', 'tourism_website'].every((prop) => {
+    return request.body.hasOwnProperty(prop);
+  })
 
-    if (!state[requiredParam]) {
-      return response.status(422).send({ error: `Expected format: {  state: <string>, number_of_music_festivals: <string>, color_3: <number>, major_airport: <string>, tourism_website: <string> }. You're missing a "${requiredParameter}" property.` })
-    } else {
-      //happy path
-      app.locals.states.push(state);
-      return response.status(201).json(state);
-    }
+  //happy path
+  if (result) {
+    app.locals.states.push(state);
+    return response.status(201).json(state);
+  } else {
+    //sad path
+    response.status(422).send({
+      error: 'You are missing data! Expected format: {  state: <string>, number_of_music_festivals: <number>, major_airport: <string>, tourism_website: <string> }'
+    })
   }
 });
 
