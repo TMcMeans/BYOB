@@ -103,19 +103,46 @@ describe('API Routes', () => {
     });
   });
 
-  // describe('/api/v1/festivals', () => {
-  //   it('GET should return all festivals', done => {
+  describe('/api/v1/festivals', () => {
+    it.only('GET should return all festivals', done => {
+      chai.request(server)
+        .get('/api/v1/festivals')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('object');
+          response.body.should.have.property('Arizona');
+          response.body.should.have.property('California');
+          response.body.should.have.property('Colorado');
+          response.body.should.have.property('Florida');
+          response.body.should.have.property('Georgia');
+          response.body.should.have.property('Illinois');
+          response.body.should.have.property('Louisiana');
+          response.body.should.have.property('Maryland');
+          response.body.should.have.property('Massachusetts');
+          response.body.should.have.property('Michigan');
+          response.body.should.have.property('Nevada');
+          response.body.should.have.property('New York');
+          response.body.should.have.property('North Carolina');
+          response.body.should.have.property('Ohio');
+          response.body.should.have.property('Oregon');
+          response.body.should.have.property('Pennsylvania');
+          response.body.should.have.property('Tennessee');
+          response.body.should.have.property('Texas');
+          response.body.should.have.property('Virginia');
+          response.body.should.have.property('Washington');
+          response.body.should.have.property('Wisconsin');
+          done();
+        })
+    });
 
-  //   });
+    it('POST should create a festival', done => {
 
-  //   it('POST should create a festival', done => {
+    });
 
-  //   });
+    it('POST should return a 422 error when creating a new festival', done => {
 
-  //   it('POST should return a 422 error when creating a new festival', done => {
-
-  //   });
-  // });
+    });
+  });
 
   // describe('/api/v1/states/:stateID', () => {
   //   it('PATCH should update a state's data', done => {

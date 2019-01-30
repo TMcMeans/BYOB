@@ -40,6 +40,8 @@ app.post('/api/v1/states', (request, response) => {
 
 app.get('/api/v1/festivals', (request, response) => {
   // get all festivals
+  const festivals = app.locals.festivals;
+  return response.status(200).json(festivals)
 });
 
 app.post('/api/v1/festivals', (request, response) => {
@@ -47,7 +49,7 @@ app.post('/api/v1/festivals', (request, response) => {
   //Create happy and sad paths
 })
 
-app.patch('/api/v1/states/:stateID', (request, response) => {
+app.patch('/api/v1/festivals/:stateID', (request, response) => {
   // update a state by id
 });
 
