@@ -1,3 +1,7 @@
+const environment = process.env.NODE_ENV || 'development';
+
+const config = require('./knexfile')[environment];
+const database = require('knex')(config);
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -13,9 +17,14 @@ app.get('/', (request, response) => {
 
 app.get('/api/v1/states', (request, response) => {
   // get all states
-  const states = app.locals.states;
-  return response.status(200).json(states)
 
+  database('states').select()
+    .then((states) => {
+      response.status(200).json(states)
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    })
 });
 
 app.post('/api/v1/states', (request, response) => {
@@ -28,8 +37,13 @@ app.post('/api/v1/states', (request, response) => {
 
   //happy path
   if (result) {
-    app.locals.states.push(state);
-    return response.status(201).json(state);
+    database('states').insert(state, 'id')
+      .then((state) => {
+        response.status(201).json({ id: state[0] });
+      })
+      .catch((error) => {
+        response.status(500).json({ error })
+      })
   } else {
     //sad path
     response.status(422).send({
@@ -40,28 +54,35 @@ app.post('/api/v1/states', (request, response) => {
 
 app.get('/api/v1/festivals', (request, response) => {
   // get all festivals
-  const festivals = app.locals.festivals;
-  return response.status(200).json(festivals)
+  database('festivals').select()
+    .then((festivals) => {
+      response.status(200).json(festivals)
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    })
 });
 
 app.post('/api/v1/states/:stateID/festivals', (request, response) => {
-  // right now there aren't ids on our states, so we need to create the db so we can use the ids for posting and getting
-
-
   //Post a festival to all festivals 
   // create the festival
   const festival = request.body;
   const stateID = request.params.stateID;
-  const state = app.locals.states.find(state => state.id === stateID);
-  // console.log(app.locals.states)
+  festival.state_id = parseInt(stateID);
+
   let result = ['festival_name', 'start_end_dates', 'city', 'image', 'state_id'].every((prop) => {
     return request.body.hasOwnProperty(prop);
   })
-  // console.log(result)
+
   //happy path
   if (result) {
-    // app.locals.festivals[].push(festival);
-    return response.status(201).json(festival);
+    database('festivals').insert(festival, 'id')
+      .then((festival) => {
+        response.status(201).json({ id: festival[0] });
+      })
+      .catch((error) => {
+        response.status(500).json({ error })
+      })
   } else {
     //sad path
     response.status(422).send({

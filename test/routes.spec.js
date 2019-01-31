@@ -1,9 +1,14 @@
+process.env.NODE_ENV = 'test';
+
 const chai = require('chai');
-const should = chai.should();
 const chaiHttp = require('chai-http');
+const should = chai.should();
 const server = require('../server.js');
-const states = require('../data/states.js');
-const festivals = require('../data/festivals.js');
+const config = require('../knexfile')['test'];
+const database = require('knex')(config);
+
+// const states = require('../data/states.js');
+// const festivals = require('../data/festivals.js');
 
 chai.use(chaiHttp);
 
@@ -32,17 +37,13 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
-  before(done => {
-    // Run migrations and seeds for test database
-    done();
-  });
-
   beforeEach((done) => {
     // Would normally run your seed(s), which includes clearing all records
     // from each of the tables
-    server.locals.states = states;
-    server.locals.festivals = festivals;
-    done();
+    database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+      .then(() => done())
   });
 
   describe('/api/v1/states', () => {
@@ -73,14 +74,7 @@ describe('API Routes', () => {
         .end((err, response) => {
           response.should.have.status(201);
           response.body.should.be.a('object');
-          response.body.should.have.property('state');
-          response.body.state.should.equal('New Jersey');
-          response.body.should.have.property('number_of_music_festivals');
-          response.body.number_of_music_festivals.should.equal(5);
-          response.body.should.have.property('major_airport');
-          response.body.major_airport.should.equal('Newark Liberty International Airport');
-          response.body.should.have.property('tourism_website');
-          response.body.tourism_website.should.equal('https://www.visitnj.org');
+          response.body.should.have.property('id');
           done();
         })
     });
@@ -109,28 +103,11 @@ describe('API Routes', () => {
         .get('/api/v1/festivals')
         .end((err, response) => {
           response.should.have.status(200);
-          response.body.should.be.a('object');
-          response.body.should.have.property('Arizona');
-          response.body.should.have.property('California');
-          response.body.should.have.property('Colorado');
-          response.body.should.have.property('Florida');
-          response.body.should.have.property('Georgia');
-          response.body.should.have.property('Illinois');
-          response.body.should.have.property('Louisiana');
-          response.body.should.have.property('Maryland');
-          response.body.should.have.property('Massachusetts');
-          response.body.should.have.property('Michigan');
-          response.body.should.have.property('Nevada');
-          response.body.should.have.property('New York');
-          response.body.should.have.property('North Carolina');
-          response.body.should.have.property('Ohio');
-          response.body.should.have.property('Oregon');
-          response.body.should.have.property('Pennsylvania');
-          response.body.should.have.property('Tennessee');
-          response.body.should.have.property('Texas');
-          response.body.should.have.property('Virginia');
-          response.body.should.have.property('Washington');
-          response.body.should.have.property('Wisconsin');
+          response.body.should.be.a('array');
+          response.body[0].should.have.property('festival_name');
+          response.body[0].should.have.property('start_end_dates');
+          response.body[0].should.have.property('city');
+          response.body[0].should.have.property('state_id');
           done();
         })
     });
@@ -141,11 +118,10 @@ describe('API Routes', () => {
       chai.request(server)
         .post('/api/v1/states/3/festivals')
         .send({
-            festival_name: 'Made Up Music Festival',
-            start_end_dates: '6/1/19-6/2/19',
-            city: 'Nowhere',
-            image: 'https://exampleimage/123.jpg',
-            state_id: 3
+          festival_name: 'Made Up Music Festival',
+          start_end_dates: '6/1/19-6/2/19',
+          city: 'Nowhere',
+          image: 'https://exampleimage/123.jpg'
         })
         .end((err, response) => {
           response.should.have.status(201);
