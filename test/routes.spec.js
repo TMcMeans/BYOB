@@ -113,6 +113,7 @@ describe('API Routes', () => {
         })
     });
 
+    //SKIPPED TEST
     it.skip('POST should create a festival', done => {
       chai.request(server)
         .post('/api/v1/festivals')
@@ -149,15 +150,25 @@ describe('API Routes', () => {
     });
   });
 
-  // describe('/api/v1/states/:stateID/festivals', () => {
-  //   it('GET should return all festivals by state', done => {
+  describe('/api/v1/states/:stateID/festivals', () => {
+    it('GET should return all festivals by state', done => {
+      chai.request(server)
+        .get('/api/v1/states/1/festivals')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('array');
+          response.body[0].should.have.property('festival_name');
+          response.body[0].should.have.property('start_end_dates');
+          response.body[0].should.have.property('city');
+          response.body[0].should.have.property('state_id');
+          done();
+        })
+    });
 
-  //   });
-
-  //   it('GET should return a 404 error if state not found', done => {
-
-  //   });
-  // });
+    it('GET should return a 404 error if state not found', done => {
+      done();
+    });
+  });
 
   // describe('/api/v1/states/:stateID', () => {
   //   it('PATCH should update a state\'s data', done => {

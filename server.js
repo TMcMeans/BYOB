@@ -91,6 +91,24 @@ app.post('/api/v1/festivals', (request, response) => {
   }
 })
 
+app.get('/api/v1/states/:stateID/festivals', (request, response) => {
+  // get all festivals in a given state
+  database('festivals').where('state_id', request.params.stateID).select()
+    .then(festivals => {
+      if (festivals.length) {
+        response.status(200).json(festivals)
+      } else {
+        response.status(404).json({
+          error: `Could not find festivals with state_id of ${request.params.stateID}`
+        })
+      }
+    })
+    .catch(err => {
+      response.status(500).json({ err })
+    })
+});
+
+
 app.patch('/api/v1/festivals/:stateID', (request, response) => {
   // update a state by id
 });
@@ -99,9 +117,6 @@ app.delete('/api/v1/states/:stateID', (request, response) => {
   // delete a state by id
 });
 
-app.get('/api/v1/states/:stateID/festivals', (request, response) => {
-  // get all festivals in a given state
-});
 
 app.get('/api/v1/festivals/:festivalID', (request, response) => {
   // get a festival by id
