@@ -45,10 +45,29 @@ app.get('/api/v1/festivals', (request, response) => {
 });
 
 app.post('/api/v1/states/:stateID/festivals', (request, response) => {
+  // right now there aren't ids on our states, so we need to create the db so we can use the ids for posting and getting
+
+
   //Post a festival to all festivals 
   // create the festival
   const festival = request.body;
-  // happy path: push to festivals return response.status(201).json(festival)
+  const stateID = request.params.stateID;
+  const state = app.locals.states.find(state => state.id === stateID);
+  // console.log(app.locals.states)
+  let result = ['festival_name', 'start_end_dates', 'city', 'image', 'state_id'].every((prop) => {
+    return request.body.hasOwnProperty(prop);
+  })
+  // console.log(result)
+  //happy path
+  if (result) {
+    // app.locals.festivals[].push(festival);
+    return response.status(201).json(festival);
+  } else {
+    //sad path
+    response.status(422).send({
+      error: 'You are missing data! Expected format: { festival_name: <string>, start_end_dates: <string>, city: <string>, image: <string>, state_id: <number> }'
+    })
+  }
 })
 
 app.patch('/api/v1/festivals/:stateID', (request, response) => {

@@ -136,22 +136,20 @@ describe('API Routes', () => {
     });
   });
 
-  describe('/api/v1/states/:stateID/festivals', () =>
+  describe('/api/v1/states/:stateID/festivals', () => {
     it.only('POST should create a festival', done => {
       chai.request(server)
-        .post('/api/v1/states/:stateID/festivals')
+        .post('/api/v1/states/3/festivals')
         .send({
-          'Arizona': {
             festival_name: 'Made Up Music Festival',
             start_end_dates: '6/1/19-6/2/19',
             city: 'Nowhere',
-            image: 'https://exampleimage/123.jpg'
-          }
+            image: 'https://exampleimage/123.jpg',
+            state_id: 3
         })
         .end((err, response) => {
-          response.should.have.status(200);
+          response.should.have.status(201);
           response.body.should.be.a('object');
-          response.body.should.have.property('id');
           response.body.should.have.property('festival_name');
           response.body.should.have.property('start_end_dates');
           response.body.should.have.property('city');
@@ -162,6 +160,14 @@ describe('API Routes', () => {
     });
 
     it('POST should return a 422 error when creating a new festival', done => {
+
+    });
+
+    it('GET should return all festivals by state', done => {
+
+    });
+
+    it('GET should return a 404 error if state not found', done => {
 
     });
   });
@@ -180,16 +186,6 @@ describe('API Routes', () => {
     });
 
     it('DELETE should return a 404 error if state is not found', () => {
-
-    });
-  });
-
-  describe('/api/v1/states/:stateID/festivals', () => {
-    it('GET should return all festivals by state', done => {
-
-    });
-
-    it('GET should return a 404 error if state not found', done => {
 
     });
   });
