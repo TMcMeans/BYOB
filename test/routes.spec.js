@@ -48,11 +48,11 @@ describe('API Routes', () => {
     database.migrate.rollback()
       .then(() => database.migrate.latest())
       .then(() => database.seed.run())
-    // done();
+    done();
   });
 
   describe('/api/v1/states', () => {
-    it('GET should return all states', done => {
+    it.only('GET should return all states', done => {
       chai.request(server)
         .get('/api/v1/states')
         .end((err, response) => {
@@ -143,7 +143,7 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/states/:stateID/festivals', () => {
-    it.only('POST should create a festival', done => {
+    it('POST should create a festival', done => {
       chai.request(server)
         .post('/api/v1/states/3/festivals')
         .send({

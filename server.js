@@ -17,9 +17,14 @@ app.get('/', (request, response) => {
 
 app.get('/api/v1/states', (request, response) => {
   // get all states
-  const states = app.locals.states;
-  return response.status(200).json(states)
 
+  database('states').select()
+    .then((states) => {
+      response.status(200).json(states)
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    })
 });
 
 app.post('/api/v1/states', (request, response) => {
