@@ -63,12 +63,12 @@ app.get('/api/v1/festivals', (request, response) => {
     })
 });
 
-app.post('/api/v1/states/:stateID/festivals', (request, response) => {
+app.post('/api/v1/festivals', (request, response) => {
   //Post a festival to all festivals 
   // create the festival
+
+  //remove id in the endpoint and add the state_id to request body 
   const festival = request.body;
-  const stateID = request.params.stateID;
-  festival.state_id = parseInt(stateID);
 
   let result = ['festival_name', 'start_end_dates', 'city', 'image', 'state_id'].every((prop) => {
     return request.body.hasOwnProperty(prop);

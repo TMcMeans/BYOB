@@ -7,6 +7,7 @@ const server = require('../server.js');
 const config = require('../knexfile')['test'];
 const database = require('knex')(config);
 
+
 // const states = require('../data/states.js');
 // const festivals = require('../data/festivals.js');
 
@@ -80,7 +81,7 @@ describe('API Routes', () => {
     });
 
     // sad path
-    it('POST should return a 422 error when creating a new state', done => {
+    it('POST should return a 422 error when creating a new state if request data has errors', done => {
       chai.request(server)
         .post('/api/v1/states')
         .send({
@@ -111,81 +112,91 @@ describe('API Routes', () => {
           done();
         })
     });
-  });
 
-  describe('/api/v1/states/:stateID/festivals', () => {
-    it.only('POST should create a festival', done => {
+    it.skip('POST should create a festival', done => {
       chai.request(server)
-        .post('/api/v1/states/3/festivals')
+        .post('/api/v1/festivals')
         .send({
           festival_name: 'Made Up Music Festival',
           start_end_dates: '6/1/19-6/2/19',
           city: 'Nowhere',
-          image: 'https://exampleimage/123.jpg'
+          image: 'https://exampleimage/123.jpg',
+          state_id: 1
         })
         .end((err, response) => {
           response.should.have.status(201);
           response.body.should.be.a('object');
-          response.body.should.have.property('festival_name');
-          response.body.should.have.property('start_end_dates');
-          response.body.should.have.property('city');
-          response.body.should.have.property('image');
-          response.body.should.have.property('state_id');
+          response.body.should.have.property('id');
           done();
         })
     });
 
-    it('POST should return a 422 error when creating a new festival', done => {
-
-    });
-
-    it('GET should return all festivals by state', done => {
-
-    });
-
-    it('GET should return a 404 error if state not found', done => {
-
-    });
-  });
-
-  describe('/api/v1/states/:stateID', () => {
-    it('PATCH should update a state\'s data', done => {
-
-    });
-
-    it('PATCH should return a 404 error if state is not found in database', () => {
-
-    });
-
-    it('DELETE should delete a state', done => {
-
-    });
-
-    it('DELETE should return a 404 error if state is not found', () => {
-
+    it('POST should return a 422 error when creating a new festival if data has errors', done => {
+      chai.request(server)
+        .post('/api/v1/festivals')
+        .send({
+          festival_name: 'Made Up Music Festival',
+          start_end_dates: '6/1/19-6/2/19',
+          image: 'https://exampleimage/123.jpg',
+          state_id: 1
+          //city information is missing
+        })
+        .end((err, response) => {
+          response.should.have.status(422);
+          response.body.error.should.equal('You are missing data! Expected format: { festival_name: <string>, start_end_dates: <string>, city: <string>, image: <string>, state_id: <number> }');
+          done();
+        });
     });
   });
 
-  describe('/api/v1/festivals/:festivalID', () => {
-    it('GET should return a festival by id', done => {
+  // describe('/api/v1/states/:stateID/festivals', () => {
+  //   it('GET should return all festivals by state', done => {
 
-    });
+  //   });
 
-    it('should PATCH to festivals', done => {
+  //   it('GET should return a 404 error if state not found', done => {
 
-    });
+  //   });
+  // });
 
-    it('PATCH should return a 404 error', done => {
+  // describe('/api/v1/states/:stateID', () => {
+  //   it('PATCH should update a state\'s data', done => {
 
-    });
+  //   });
 
-    it('should DELETE a festival by id', done => {
+  //   it('PATCH should return a 404 error if state is not found in database', () => {
 
-    });
+  //   });
 
-    it('DELETE should return a 404 error', done => {
+  //   it('DELETE should delete a state', done => {
 
-    });
+  //   });
 
-  });
+  //   it('DELETE should return a 404 error if state is not found', () => {
+
+  //   });
+  // });
+
+  // describe('/api/v1/festivals/:festivalID', () => {
+  //   it('GET should return a festival by id', done => {
+
+  //   });
+
+  //   it('should PATCH to festivals', done => {
+
+  //   });
+
+  //   it('PATCH should return a 404 error', done => {
+
+  //   });
+
+  //   it('should DELETE a festival by id', done => {
+
+  //   });
+
+  //   it('DELETE should return a 404 error', done => {
+
+  //   });
+
+  // });
 })
