@@ -37,8 +37,13 @@ app.post('/api/v1/states', (request, response) => {
 
   //happy path
   if (result) {
-    app.locals.states.push(state);
-    return response.status(201).json(state);
+    database('states').insert(state, 'id')
+      .then((state) => {
+        response.status(201).json({ id: state[0] });
+      })
+      .catch((error) => {
+        response.status(500).json({ error })
+      })
   } else {
     //sad path
     response.status(422).send({

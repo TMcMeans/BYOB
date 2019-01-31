@@ -39,20 +39,21 @@ describe('Client Routes', () => {
 describe('API Routes', () => {
   before(done => {
     // Run migrations and seeds for test database
-    done();
-  });
-
-  beforeEach((done) => {
-    // Would normally run your seed(s), which includes clearing all records
-    // from each of the tables
     database.migrate.rollback()
       .then(() => database.migrate.latest())
       .then(() => database.seed.run())
     done();
   });
 
+  beforeEach((done) => {
+    // Would normally run your seed(s), which includes clearing all records
+    // from each of the tables
+    database.seed.run();
+    done();
+  });
+
   describe('/api/v1/states', () => {
-    it.only('GET should return all states', done => {
+    it('GET should return all states', done => {
       chai.request(server)
         .get('/api/v1/states')
         .end((err, response) => {
@@ -67,7 +68,7 @@ describe('API Routes', () => {
     });
 
     //happy path
-    it('POST should create a new state', done => {
+    it.only('POST should create a new state', done => {
       chai.request(server)
         .post('/api/v1/states')
         .send({
@@ -79,14 +80,7 @@ describe('API Routes', () => {
         .end((err, response) => {
           response.should.have.status(201);
           response.body.should.be.a('object');
-          response.body.should.have.property('state');
-          response.body.state.should.equal('New Jersey');
-          response.body.should.have.property('number_of_music_festivals');
-          response.body.number_of_music_festivals.should.equal(5);
-          response.body.should.have.property('major_airport');
-          response.body.major_airport.should.equal('Newark Liberty International Airport');
-          response.body.should.have.property('tourism_website');
-          response.body.tourism_website.should.equal('https://www.visitnj.org');
+          response.body.should.have.property('id');
           done();
         })
     });
