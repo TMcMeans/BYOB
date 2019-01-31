@@ -51,7 +51,7 @@
     { festival_name: 'Snowglobe', start_end_dates: '12/29/19-12/31/19', city: 'South Lake Tahoe', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2015/01/IMaGe_5992-600x400.jpg' }
   ],
   'Colorado': [
-    { festival_name: 'Country Jam Colorado', start_end_dates: '6/13/19-6/16/19', city: 'Grand Junciton', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2018/11/Country-Jam-Hero-600x400.jpg' },
+    { festival_name: 'Country Jam Colorado', start_end_dates: '6/13/19-6/16/19', city: 'Grand Junction', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2018/11/Country-Jam-Hero-600x400.jpg' },
     { festival_name: 'Sonic Bloom', start_end_dates: '6/20/19-6/23/19', city: 'Rye', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/Sonic-Bloom-Eric-Allen-Editorial-600x400.jpg' },
     { festival_name: 'Telluride Bluegrass Festival', start_end_dates: '6/20/19-6/23/19', city: 'Telluride', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2014/12/TellurideBluegrass2013-StringCheeseIncident-EastView-CreditBenkoPhotos-600x400.jpg' },
     { festival_name: 'The Ride Festival', start_end_dates: '7/12/19-7/14/19', city: 'Telluride', image: 'https://1b7ta73fjmj23201tc3suvsi-wpengine.netdna-ssl.com/wp-content/uploads/2017/11/RIDE-FEST-JACKIE-GREENE-crowd-1030x670-600x400.jpg' },
