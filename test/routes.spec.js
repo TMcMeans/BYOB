@@ -103,68 +103,117 @@ describe('API Routes', () => {
     });
   });
 
-  // describe('/api/v1/festivals', () => {
-  //   it('GET should return all festivals', done => {
+  describe('/api/v1/festivals', () => {
+    it('GET should return all festivals', done => {
+      chai.request(server)
+        .get('/api/v1/festivals')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('object');
+          response.body.should.have.property('Arizona');
+          response.body.should.have.property('California');
+          response.body.should.have.property('Colorado');
+          response.body.should.have.property('Florida');
+          response.body.should.have.property('Georgia');
+          response.body.should.have.property('Illinois');
+          response.body.should.have.property('Louisiana');
+          response.body.should.have.property('Maryland');
+          response.body.should.have.property('Massachusetts');
+          response.body.should.have.property('Michigan');
+          response.body.should.have.property('Nevada');
+          response.body.should.have.property('New York');
+          response.body.should.have.property('North Carolina');
+          response.body.should.have.property('Ohio');
+          response.body.should.have.property('Oregon');
+          response.body.should.have.property('Pennsylvania');
+          response.body.should.have.property('Tennessee');
+          response.body.should.have.property('Texas');
+          response.body.should.have.property('Virginia');
+          response.body.should.have.property('Washington');
+          response.body.should.have.property('Wisconsin');
+          done();
+        })
+    });
+  });
 
-  //   });
+  describe('/api/v1/states/:stateID/festivals', () =>
+    it.only('POST should create a festival', done => {
+      chai.request(server)
+        .post('/api/v1/states/:stateID/festivals')
+        .send({
+          'Arizona': {
+            festival_name: 'Made Up Music Festival',
+            start_end_dates: '6/1/19-6/2/19',
+            city: 'Nowhere',
+            image: 'https://exampleimage/123.jpg'
+          }
+        })
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('object');
+          response.body.should.have.property('id');
+          response.body.should.have.property('festival_name');
+          response.body.should.have.property('start_end_dates');
+          response.body.should.have.property('city');
+          response.body.should.have.property('image');
+          response.body.should.have.property('state_id');
+          done();
+        })
+    });
 
-  //   it('POST should create a festival', done => {
+    it('POST should return a 422 error when creating a new festival', done => {
 
-  //   });
+    });
+  });
 
-  //   it('POST should return a 422 error when creating a new festival', done => {
+  describe('/api/v1/states/:stateID', () => {
+    it('PATCH should update a state\'s data', done => {
 
-  //   });
-  // });
+    });
 
-  // describe('/api/v1/states/:stateID', () => {
-  //   it('PATCH should update a state's data', done => {
+    it('PATCH should return a 404 error if state is not found in database', () => {
 
-  //   });
+    });
 
-  //   it('PATCH should return a 404 error if state is not found in database', () => {
+    it('DELETE should delete a state', done => {
 
-  //   });
+    });
 
-  //   it('DELETE should delete a state', done => {
+    it('DELETE should return a 404 error if state is not found', () => {
 
-  //   });
+    });
+  });
 
-  //   it('DELETE should return a 404 error if state is not found', () => {
+  describe('/api/v1/states/:stateID/festivals', () => {
+    it('GET should return all festivals by state', done => {
 
-  //   });
-  // });
+    });
 
-  // describe('/api/v1/states/:stateID/festivals', () => {
-  //   it('GET should return all festivals by state', done => {
+    it('GET should return a 404 error if state not found', done => {
 
-  //   });
+    });
+  });
 
-  //   it('GET should return a 404 error if state not found', done => {
+  describe('/api/v1/festivals/:festivalID', () => {
+    it('GET should return a festival by id', done => {
 
-  //   });
-  // });
+    });
 
-  // describe('/api/v1/festivals/:festivalID', () => {
-  //   it('GET should return a festival by id', done => {
+    it('should PATCH to festivals', done => {
 
-  //   });
+    });
 
-  //   it('should PATCH to festivals', done => {
+    it('PATCH should return a 404 error', done => {
 
-  //   });
+    });
 
-  //   it('PATCH should return a 404 error', done => {
+    it('should DELETE a festival by id', done => {
 
-  //   });
+    });
 
-  //   it('should DELETE a festival by id', done => {
+    it('DELETE should return a 404 error', done => {
 
-  //   });
+    });
 
-  //   it('DELETE should return a 404 error', done => {
-
-  //   });
-
-  // });
+  });
 })
