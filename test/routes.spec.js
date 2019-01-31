@@ -1,9 +1,14 @@
+process.env.NODE_ENV = 'test';
+
 const chai = require('chai');
-const should = chai.should();
 const chaiHttp = require('chai-http');
+const should = chai.should();
 const server = require('../server.js');
-const states = require('../data/states.js');
-const festivals = require('../data/festivals.js');
+const config = require('../knexfile')['test'];
+const database = require('knex')(config);
+
+// const states = require('../data/states.js');
+// const festivals = require('../data/festivals.js');
 
 chai.use(chaiHttp);
 
@@ -40,9 +45,10 @@ describe('API Routes', () => {
   beforeEach((done) => {
     // Would normally run your seed(s), which includes clearing all records
     // from each of the tables
-    server.locals.states = states;
-    server.locals.festivals = festivals;
-    done();
+    database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+    // done();
   });
 
   describe('/api/v1/states', () => {
@@ -141,11 +147,11 @@ describe('API Routes', () => {
       chai.request(server)
         .post('/api/v1/states/3/festivals')
         .send({
-            festival_name: 'Made Up Music Festival',
-            start_end_dates: '6/1/19-6/2/19',
-            city: 'Nowhere',
-            image: 'https://exampleimage/123.jpg',
-            state_id: 3
+          festival_name: 'Made Up Music Festival',
+          start_end_dates: '6/1/19-6/2/19',
+          city: 'Nowhere',
+          image: 'https://exampleimage/123.jpg',
+          state_id: 3
         })
         .end((err, response) => {
           response.should.have.status(201);
