@@ -37,19 +37,13 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
-  before(done => {
-    // Run migrations and seeds for test database
-    database.migrate.rollback()
-      .then(() => database.migrate.latest())
-      .then(() => database.seed.run())
-    done();
-  });
-
   beforeEach((done) => {
     // Would normally run your seed(s), which includes clearing all records
     // from each of the tables
-    database.seed.run();
-    done();
+    database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+      .then(() => done())
   });
 
   describe('/api/v1/states', () => {
@@ -68,7 +62,7 @@ describe('API Routes', () => {
     });
 
     //happy path
-    it.only('POST should create a new state', done => {
+    it('POST should create a new state', done => {
       chai.request(server)
         .post('/api/v1/states')
         .send({
@@ -104,33 +98,16 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/festivals', () => {
-    it('GET should return all festivals', done => {
+    it.only('GET should return all festivals', done => {
       chai.request(server)
         .get('/api/v1/festivals')
         .end((err, response) => {
           response.should.have.status(200);
-          response.body.should.be.a('object');
-          response.body.should.have.property('Arizona');
-          response.body.should.have.property('California');
-          response.body.should.have.property('Colorado');
-          response.body.should.have.property('Florida');
-          response.body.should.have.property('Georgia');
-          response.body.should.have.property('Illinois');
-          response.body.should.have.property('Louisiana');
-          response.body.should.have.property('Maryland');
-          response.body.should.have.property('Massachusetts');
-          response.body.should.have.property('Michigan');
-          response.body.should.have.property('Nevada');
-          response.body.should.have.property('New York');
-          response.body.should.have.property('North Carolina');
-          response.body.should.have.property('Ohio');
-          response.body.should.have.property('Oregon');
-          response.body.should.have.property('Pennsylvania');
-          response.body.should.have.property('Tennessee');
-          response.body.should.have.property('Texas');
-          response.body.should.have.property('Virginia');
-          response.body.should.have.property('Washington');
-          response.body.should.have.property('Wisconsin');
+          response.body.should.be.a('array');
+          response.body[0].should.have.property('festival_name');
+          response.body[0].should.have.property('start_end_dates');
+          response.body[0].should.have.property('city');
+          response.body[0].should.have.property('state_id');
           done();
         })
     });

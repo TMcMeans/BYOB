@@ -54,8 +54,13 @@ app.post('/api/v1/states', (request, response) => {
 
 app.get('/api/v1/festivals', (request, response) => {
   // get all festivals
-  const festivals = app.locals.festivals;
-  return response.status(200).json(festivals)
+  database('festivals').select()
+    .then((festivals) => {
+      response.status(200).json(festivals)
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    })
 });
 
 app.post('/api/v1/states/:stateID/festivals', (request, response) => {
