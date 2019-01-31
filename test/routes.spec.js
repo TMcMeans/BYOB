@@ -166,6 +166,12 @@ describe('API Routes', () => {
     });
 
     it('GET should return a 404 error if state not found', done => {
+      chai.request(server)
+        .get('/api/v1/states/50000000000/festivals')
+        .end((err, response) => {
+          response.should.have.status(404);
+          response.body.error.should.equal('Could not find festivals with state_id of 50000000000');
+        })
       done();
     });
   });
