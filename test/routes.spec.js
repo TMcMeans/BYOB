@@ -98,7 +98,7 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/festivals', () => {
-    it.only('GET should return all festivals', done => {
+    it('GET should return all festivals', done => {
       chai.request(server)
         .get('/api/v1/festivals')
         .end((err, response) => {
@@ -114,15 +114,14 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/states/:stateID/festivals', () => {
-    it('POST should create a festival', done => {
+    it.only('POST should create a festival', done => {
       chai.request(server)
         .post('/api/v1/states/3/festivals')
         .send({
           festival_name: 'Made Up Music Festival',
           start_end_dates: '6/1/19-6/2/19',
           city: 'Nowhere',
-          image: 'https://exampleimage/123.jpg',
-          state_id: 3
+          image: 'https://exampleimage/123.jpg'
         })
         .end((err, response) => {
           response.should.have.status(201);
