@@ -135,6 +135,21 @@ app.delete('/api/v1/states/:stateID', (request, response) => {
 
 app.get('/api/v1/festivals/:festivalID', (request, response) => {
   // get a festival by id
+  const { festivalID } = request.params;
+
+  database('festivals').where('id', festivalID).select()
+    .then(festival => {
+      if (festival) {
+        response.status(200).json(festival)
+      } else {
+        response.status(404).json({
+          error: `Could not find festival with id of ${request.params.festivalID}`
+        })
+      }
+    })
+    .catch((error) => {
+      response.status(500).json({ error })
+    })
 });
 
 app.patch('/api/v1/festivals/:festivalID', (request, response) => {
