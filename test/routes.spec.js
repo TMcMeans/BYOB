@@ -167,32 +167,38 @@ describe('API Routes', () => {
 
     it('GET should return a 404 error if state not found', done => {
       chai.request(server)
-        .get('/api/v1/states/50000000000/festivals')
+        .get('/api/v1/states/500000/festivals')
         .end((err, response) => {
           response.should.have.status(404);
-          response.body.error.should.equal('Could not find festivals with state_id of 50000000000');
+          response.body.error.should.equal('Could not find festivals with state_id of 500000');
+          done();
         })
-      done();
     });
   });
 
-  // describe('/api/v1/states/:stateID', () => {
-  //   it('PATCH should update a state\'s data', done => {
+  describe('/api/v1/states/:stateID', () => {
+    //   it('PATCH should update a state\'s data', done => {
 
-  //   });
+    //   });
 
-  //   it('PATCH should return a 404 error if state is not found in database', () => {
+    //   it('PATCH should return a 404 error if state is not found in database', () => {
 
-  //   });
+    //   });
 
-  //   it('DELETE should delete a state', done => {
+    it('DELETE should delete a state', done => {
+      chai.request(server)
+        .delete('/api/v1/states/1')
+        .end((err, response) => {
+          response.should.have.status(202);
+          response.body.should.equal('Entry 1 successfully deleted')
+          done();
+        })
+    });
 
-  //   });
+    it('DELETE should return a 404 error if state is not found', () => {
 
-  //   it('DELETE should return a 404 error if state is not found', () => {
-
-  //   });
-  // });
+    });
+  });
 
   // describe('/api/v1/festivals/:festivalID', () => {
   //   it('GET should return a festival by id', done => {
