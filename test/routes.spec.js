@@ -190,36 +190,54 @@ describe('API Routes', () => {
         .delete('/api/v1/states/1')
         .end((err, response) => {
           response.should.have.status(202);
-          response.body.should.equal('Entry 1 successfully deleted')
+          response.body.should.equal('State: 1 successfully deleted')
           done();
         })
     });
 
-    it('DELETE should return a 404 error if state is not found', () => {
-
+    it.skip('DELETE should return a 500 error if state is not found', (done) => {
+      chai.request(server)
+        .delete('/api/v1/states/50000')
+        .end((err, response) => {
+          response.should.have.status(500);
+          response.body.error.should.equal('Could not find state with id of 50000')
+          done();
+        })
     });
   });
 
-  // describe('/api/v1/festivals/:festivalID', () => {
-  //   it('GET should return a festival by id', done => {
+  describe('/api/v1/festivals/:festivalID', () => {
+    //   it('GET should return a festival by id', done => {
 
-  //   });
+    //   });
 
-  //   it('should PATCH to festivals', done => {
+    //   it('should PATCH to festivals', done => {
 
-  //   });
+    //   });
 
-  //   it('PATCH should return a 404 error', done => {
+    //   it('PATCH should return a 404 error', done => {
 
-  //   });
+    //   });
 
-  //   it('should DELETE a festival by id', done => {
+    it('should DELETE a festival by id', done => {
+      chai.request(server)
+        .delete('/api/v1/festivals/1')
+        .end((err, response) => {
+          response.should.have.status(202);
+          response.body.should.equal('Festival: 1 successfully deleted')
+          done();
+        })
+    });
 
-  //   });
+    it.skip('DELETE should return a 500 error if festival is not found', done => {
+      chai.request(server)
+        .delete('/api/v1/festivals/50000')
+        .end((err, response) => {
+          response.should.have.status(500);
+          response.body.error.should.equal('Could not find state with id of 50000')
+          done();
+        });
 
-  //   it('DELETE should return a 404 error', done => {
-
-  //   });
-
-  // });
+    });
+  })
 })
