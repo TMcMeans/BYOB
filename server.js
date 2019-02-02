@@ -65,9 +65,6 @@ app.get('/api/v1/festivals', (request, response) => {
 
 app.post('/api/v1/festivals', (request, response) => {
   //Post a festival to all festivals 
-  // create the festival
-
-  //remove id in the endpoint and add the state_id to request body 
   const festival = request.body;
 
   let result = ['festival_name', 'start_end_dates', 'city', 'image', 'state_id'].every((prop) => {
@@ -115,20 +112,52 @@ app.patch('/api/v1/festivals/:stateID', (request, response) => {
 
 app.delete('/api/v1/states/:stateID', (request, response) => {
   // delete a state by id
-});
+  const { stateID } = request.params;
 
+  database('festivals')
+    .where({ state_id: stateID })
+    .del()
+    .then(() =>
+      database('states')
+        .where({ id: stateID })
+        .del()
+    )
+    .then(state => {
+      response.status(202).json(`State: ${stateID} successfully deleted`);
+    })
+    .catch((err) => {
+      // console.log(response)
+      response.status(500).json({
+        error: `Could not find state with id of ${request.params.stateID}`
+      })
+    })
+});
 
 app.get('/api/v1/festivals/:festivalID', (request, response) => {
   // get a festival by id
 });
 
-app.delete('/api/v1/festivals/:festivalID', (request, response) => {
-  // delete a festival by id
-});
-
 app.patch('/api/v1/festivals/:festivalID', (request, response) => {
   // update a festival by id
 });
+
+app.delete('/api/v1/festivals/:festivalID', (request, response) => {
+  // delete a festival by id
+  const { festivalID } = request.params;
+
+  database('festivals')
+    .where({ id: festivalID })
+    .del()
+    .then(festival => {
+      response.status(202).json(`Festival: ${festivalID} successfully deleted`);
+    })
+    .catch((err) => {
+      response.status(404).json({
+        error: `Could not find festival with id of ${request.params.festivalID}`
+      })
+    })
+});
+
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`)
