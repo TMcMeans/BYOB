@@ -207,19 +207,19 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/festivals/:festivalID', () => {
-      it('GET should return a festival by id', done => {
-        chai.request(server)
-          .get('/api/v1/festivals/1')
-          .end((err, response) => {
-            response.should.have.status(200);
-            response.body.should.be.a('object');
-            response.body.should.have.property('festival_name');
-            response.body.should.have.property('start_end_dates');
-            response.body.should.have.property('city');
-            response.body.should.have.property('state_id');
-            done();
-          })
-      });
+    it('GET should return a festival by id', done => {
+      chai.request(server)
+        .get('/api/v1/festivals/1')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('array');
+          response.body[0].should.have.property('festival_name');
+          response.body[0].should.have.property('start_end_dates');
+          response.body[0].should.have.property('city');
+          response.body[0].should.have.property('state_id');
+          done();
+        })
+    });
 
     //   it('should PATCH to festivals', done => {
 
