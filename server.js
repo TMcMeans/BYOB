@@ -106,8 +106,29 @@ app.get('/api/v1/states/:stateID/festivals', (request, response) => {
 });
 
 
-app.patch('/api/v1/festivals/:stateID', (request, response) => {
+app.put('/api/v1/states/:stateID', (request, response) => {
   // update a state by id
+  const { stateID } = request.params;
+  const updatedState = request.body;
+  let result = ['state', 'number_of_music_festivals', 'major_airport', 'tourism_website'].every((prop) => {
+    return request.body.hasOwnProperty(prop);
+  });
+
+  if (result) {
+    // happy
+    database('states').where('id', stateID).update(updatedState)
+      .then(state => {
+        response.status(200).json(`Successfully updated state with id of ${stateID}`)
+      })
+      .catch((error) => {
+        response.status(500).json({ error: `State with id of ${stateID} is not found` })
+      })
+  } else {
+    //sad path
+    response.status(422).send({
+      error: 'You are missing data! Expected format: {  state: <string>, number_of_music_festivals: <number>, major_airport: <string>, tourism_website: <string> }'
+    })
+  }
 });
 
 app.delete('/api/v1/states/:stateID', (request, response) => {
@@ -152,8 +173,29 @@ app.get('/api/v1/festivals/:festivalID', (request, response) => {
     })
 });
 
-app.patch('/api/v1/festivals/:festivalID', (request, response) => {
+app.put('/api/v1/festivals/:festivalID', (request, response) => {
   // update a festival by id
+  const { festivalID } = request.params;
+  const updatedFestival = request.body;
+  let result = ['festival_name', 'start_end_dates', 'city', 'image'].every((prop) => {
+    return request.body.hasOwnProperty(prop);
+  });
+
+  if (result) {
+    // happy
+    database('festivals').where('id', festivalID).update(updatedFestival)
+      .then(festival => {
+        response.status(200).json(`Successfully updated festival with id of ${festivalID}`)
+      })
+      .catch((error) => {
+        response.status(500).json({ error: `Festival with id of ${festivalID} is not found` })
+      })
+  } else {
+    //sad path
+    response.status(422).send({
+      error: 'You are missing data! Expected format: {  festival_name: <string>, start_end_dates: <string>, city: <string>, image: <string> }'
+    })
+  }
 });
 
 app.delete('/api/v1/festivals/:festivalID', (request, response) => {
@@ -173,6 +215,7 @@ app.delete('/api/v1/festivals/:festivalID', (request, response) => {
     })
 });
 
+// write endpoint to query states for a certain number of festivals (>5 or <10 or something)
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`)

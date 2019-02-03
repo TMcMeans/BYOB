@@ -177,13 +177,38 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/states/:stateID', () => {
-    //   it('PATCH should update a state\'s data', done => {
+    it('PUT should update a state\'s data', done => {
+      chai.request(server)
+        .put('/api/v1/states/1')
+        .send({
+          state: 'Arizona',
+          number_of_music_festivals: 1,
+          major_airport: 'Phoenix Sky Harbor International Airport',
+          tourism_website: 'https://www.visitarizona.com'
+        })
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('string');
+          response.body.should.equal('Successfully updated state with id of 1');
+          done();
+        })
+    });
 
-    //   });
-
-    //   it('PATCH should return a 404 error if state is not found in database', () => {
-
-    //   });
+    it('PUT should return a 422 error if state request is missing properties', done => {
+      chai.request(server)
+        .put('/api/v1/states/1')
+        .send({
+          state: 'Arizona',
+          major_airport: 'Phoenix Sky Harbor International Airport',
+          tourism_website: 'https://www.visitarizona.com'
+        })
+        .end((err, response) => {
+          response.should.have.status(422);
+          response.body.should.be.a('object');
+          response.body.error.should.equal('You are missing data! Expected format: {  state: <string>, number_of_music_festivals: <number>, major_airport: <string>, tourism_website: <string> }');
+          done();
+        })
+    });
 
     it('DELETE should delete a state', done => {
       chai.request(server)
@@ -221,13 +246,38 @@ describe('API Routes', () => {
         })
     });
 
-    //   it('should PATCH to festivals', done => {
+    it('PUT should update a festival', done => {
+      chai.request(server)
+        .put('/api/v1/festivals/1')
+        .send({
+          festival_name: 'Arizona Roots',
+          start_end_dates: '2/9/19-2/10/19',
+          city: 'Chandler',
+          image: 'https://example.jpg'
+        })
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('string');
+          response.body.should.equal('Successfully updated festival with id of 1');
+          done();
+        })
+    });
 
-    //   });
-
-    //   it('PATCH should return a 404 error', done => {
-
-    //   });
+    it('PUT should return a 422 error if festival object is missing properties', done => {
+      chai.request(server)
+        .put('/api/v1/festivals/1')
+        .send({
+          start_end_dates: '2/9/19-2/10/19',
+          city: 'Chandler',
+          image: 'https://example.jpg'
+        })
+        .end((err, response) => {
+          response.should.have.status(422);
+          response.body.should.be.a('object');
+          response.body.error.should.equal('You are missing data! Expected format: {  festival_name: <string>, start_end_dates: <string>, city: <string>, image: <string> }');
+          done();
+        })
+    });
 
     it('should DELETE a festival by id', done => {
       chai.request(server)
