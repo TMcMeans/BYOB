@@ -1,10 +1,8 @@
-# BYOB 
-# US Music Festivals API
+# BYOB- US Music Festivals API
 
 Are you building a tourism, vacation or music events/performances app? This API allows you to find data on all major 2019 music festivals happening in over 20 states. Data is stored with a PostgresSQL database and the backend is built with Node.js, Express and Knex.js. 
 
-## API Endpoints 
----
+# API Endpoints 
 
 ### States
 ```
@@ -42,8 +40,8 @@ PUT /api/v1/festivals/:festivalID // update a specific festival's data
 DELETE /api/v1/festivals/:festivalID // delete a festival
 ```
 
-## Sample Responses 
----
+# Sample Responses 
+
 ### All States Response 
 ```
 Status: 200 OK
@@ -146,8 +144,8 @@ Link: <http://localhost:3000/api/v1/festivals>
 ]
 ```
 
-## Technologies Used
----
+# Technologies Used
+
 - Node.js
 - Express
 - Knex.js
@@ -159,24 +157,17 @@ For testing:
 - Chai HTTP
 
 
-## To Contribute to this Project 
----
-1. Follow the setup steps above to get app running locally on your machine. 
+# To Contribute to this Project 
 
-2. Check out our list of github issues [here](https://github.com/ashtonkbailey/BYOB/issues). Please use these issues as a helpful guidance for any contributions you would like to make. 
+1. Follow the steps in the (SETUP.md)[https://github.com/ashtonkbailey/BYOB/SETUP.md] file to get app running locally on your machine. 
 
-3. Send a pull request via Github: 
-  - Add a forked version of this repo as your remote
-  - Checkout to a new branch
-  - Push up your contribution to your forked repo
-  - Submit a **pull request** to the original repo
-  - Include a brief, but concise commit message detailing the changes you have made (include an issue # if applicable)
-  - Make sure your contribution is fully tested and tests are passing
-  - We use Git rebase workflow, please rebase your work onto the current master branch 
+2. Check out our list of github issues [here](https://github.com/ashtonkbailey/BYOB/issues). Please use these issues as a helpful guidance for any contributions you would like to make.
+
+3. We would love to have you contribute to our project! Read our (CONTRIBUTING.md)[https://github.com/ashtonkbailey/BYOB/CONTRIBUTING.md] file to see how we like our pull requests.  
 
 
-## Project Specs 
----
+# Project Specs 
+
 This project was designed as a build-your-own-backend (BYOB) challenge at Turing School of Software & Design. 
 
 Database and Backend designed and created by lead developers [Tanjie McMeans](https://github.com/TMcMeans) and [Ashton Bailey](https://github.com/ashtonkbailey).
