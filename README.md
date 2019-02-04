@@ -203,10 +203,7 @@ For testing:
 ---
 This project was designed as a build-your-own-backend (BYOB) challenge at Turing School of Software & Design. 
 
-Database and Backend designed and created by lead developers Tanjie McMeans and Ashton Bailey.
-
-- [Tanjie McMeans- Github](https://github.com/TMcMeans)
-- [Ashton Bailey- Github](https://github.com/ashtonkbailey)
+Database and Backend designed and created by lead developers [Tanjie McMeans](https://github.com/TMcMeans) and [Ashton Bailey](https://github.com/ashtonkbailey).
 
 - [Project Spec link](http://frontend.turing.io/projects/build-your-own-backend.html)
 - [Backend Checklist link](http://frontend.turing.io/projects/byob/backend-feature-checklist.html)
