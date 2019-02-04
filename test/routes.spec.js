@@ -14,7 +14,6 @@ const database = require('knex')(config);
 chai.use(chaiHttp);
 
 describe('Client Routes', () => {
-  // happy path
   it('should return the homepage with text', done => {
     chai.request(server)
       .get('/')
@@ -26,7 +25,6 @@ describe('Client Routes', () => {
       });
   });
 
-  // sad path
   it('should return 404 for nonexisting routes', done => {
     chai.request(server)
       .get('/sad')
@@ -39,8 +37,7 @@ describe('Client Routes', () => {
 
 describe('API Routes', () => {
   beforeEach((done) => {
-    // Would normally run your seed(s), which includes clearing all records
-    // from each of the tables
+
     database.migrate.rollback()
       .then(() => database.migrate.latest())
       .then(() => database.seed.run())
@@ -62,7 +59,6 @@ describe('API Routes', () => {
         })
     });
 
-    //happy path
     it('POST should create a new state', done => {
       chai.request(server)
         .post('/api/v1/states')
@@ -80,7 +76,6 @@ describe('API Routes', () => {
         })
     });
 
-    // sad path
     it('POST should return a 422 error when creating a new state if request data has errors', done => {
       chai.request(server)
         .post('/api/v1/states')
@@ -235,11 +230,11 @@ describe('API Routes', () => {
         })
     });
 
-    it.skip('DELETE should return a 500 error if state is not found', (done) => {
+    it('DELETE should return a 404 error if state is not found', (done) => {
       chai.request(server)
         .delete('/api/v1/states/50000')
         .end((err, response) => {
-          response.should.have.status(500);
+          response.should.have.status(404);
           response.body.error.should.equal('Could not find state with id of 50000')
           done();
         })
@@ -304,12 +299,12 @@ describe('API Routes', () => {
         })
     });
 
-    it.skip('DELETE should return a 500 error if festival is not found', done => {
+    it('DELETE should return a 404 error if festival is not found', done => {
       chai.request(server)
         .delete('/api/v1/festivals/50000')
         .end((err, response) => {
-          response.should.have.status(500);
-          response.body.error.should.equal('Could not find state with id of 50000')
+          response.should.have.status(404);
+          response.body.error.should.equal('Could not find festival with id of 50000')
           done();
         });
 

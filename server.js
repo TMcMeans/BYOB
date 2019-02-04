@@ -139,7 +139,7 @@ app.put('/api/v1/states/:stateID', (request, response) => {
         response.status(200).json(`Successfully updated state with id of ${stateID}`)
       })
       .catch((error) => {
-        response.status(500).json({ error: `State with id of ${stateID} is not found` })
+        response.status(404).json({ error: `State with id of ${stateID} is not found` })
       })
   } else {
     //sad path
@@ -162,12 +162,16 @@ app.delete('/api/v1/states/:stateID', (request, response) => {
         .del()
     )
     .then(state => {
-      response.status(202).json(`State: ${stateID} successfully deleted`);
+      if (state) {
+        response.status(202).json(`State: ${stateID} successfully deleted`);
+      } else {
+        response.status(404).json({ error: `Could not find state with id of ${request.params.stateID}` })
+      }
     })
     .catch((err) => {
       // console.log(response)
       response.status(500).json({
-        error: `Could not find state with id of ${request.params.stateID}`
+        error: `Internal server error`
       })
     })
 });
@@ -206,7 +210,7 @@ app.put('/api/v1/festivals/:festivalID', (request, response) => {
         response.status(200).json(`Successfully updated festival with id of ${festivalID}`)
       })
       .catch((error) => {
-        response.status(500).json({ error: `Festival with id of ${festivalID} is not found` })
+        response.status(404).json({ error: `Festival with id of ${festivalID} is not found` })
       })
   } else {
     //sad path
@@ -224,11 +228,16 @@ app.delete('/api/v1/festivals/:festivalID', (request, response) => {
     .where({ id: festivalID })
     .del()
     .then(festival => {
-      response.status(202).json(`Festival: ${festivalID} successfully deleted`);
+
+      if (festival) {
+        response.status(202).json(`Festival: ${festivalID} successfully deleted`);
+      } else {
+        response.status(404).json({ error: `Could not find festival with id of ${request.params.festivalID}` })
+      }
     })
     .catch((err) => {
-      response.status(404).json({
-        error: `Could not find festival with id of ${request.params.festivalID}`
+      response.status(500).json({
+        error: `Internal server error`
       })
     })
 });
