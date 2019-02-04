@@ -159,11 +159,11 @@ For testing:
 
 # To Contribute to this Project 
 
-1. Follow the steps in the (SETUP.md)[https://github.com/ashtonkbailey/BYOB/SETUP.md] file to get app running locally on your machine. 
+1. Follow the steps in the [SETUP.md](https://github.com/ashtonkbailey/BYOB/SETUP.md) file to get app running locally on your machine. 
 
 2. Check out our list of github issues [here](https://github.com/ashtonkbailey/BYOB/issues). Please use these issues as a helpful guidance for any contributions you would like to make.
 
-3. We would love to have you contribute to our project! Read our (CONTRIBUTING.md)[https://github.com/ashtonkbailey/BYOB/CONTRIBUTING.md] file to see how we like our pull requests.  
+3. We would love to have you contribute to our project! Read our [CONTRIBUTING.md](https://github.com/ashtonkbailey/BYOB/CONTRIBUTING.md) file to see how we like our pull requests.  
 
 
 # Project Specs 
