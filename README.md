@@ -37,6 +37,12 @@ GET /api/v1/states // get all states
 
 POST /api/v1/states // create a new state 
 
+GET /api/v1/states:stateID // get a specific state 
+--> returns an array with a specific state 
+
+GET  /api/v1/states?state_id=1 // get a specific state
+--> returns an array with a specific state 
+
 PUT /api/v1/states/:stateID // update a specific state's data
 
 DELETE /api/v1/states/:stateID // delete a state
@@ -53,7 +59,7 @@ GET /api/v1/states/:stateID/festivals // get all festivals in a specific state
 --> returns an array of festival objects in a  state
 
 GET /api/v1/festivals/:festivalID // get a specific festival
---> returns an array with specific festival 
+--> returns an array with a specific festival 
 
 PUT /api/v1/festivals/:festivalID // update a specific festival's data 
 

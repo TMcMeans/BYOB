@@ -98,6 +98,7 @@ describe('API Routes', () => {
     });
   });
 
+
   describe('/api/v1/festivals', () => {
     it('GET should return all festivals', done => {
       chai.request(server)
@@ -177,6 +178,20 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/states/:stateID', () => {
+    it('GET should return a state by ID', done => {
+      chai.request(server)
+        .get('/api/v1/states/1')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('array');
+          response.body[0].should.have.property('state')
+          response.body[0].should.have.property('number_of_music_festivals')
+          response.body[0].should.have.property('major_airport')
+          response.body[0].should.have.property('tourism_website')
+          done();
+        })
+    })
+
     it('PUT should update a state\'s data', done => {
       chai.request(server)
         .put('/api/v1/states/1')
