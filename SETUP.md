@@ -55,21 +55,21 @@ You are also going to need to create the psql database the app will use by typin
 ```
 Create a PostgreSQL Database and Run Migrations
 
-$ psql    // open psql in your terminal
-$ CREATE DATABASE us_music_festivals    // create a new database 
-$ CREATE DATABASE us_music_festivals_tests    // create a new database for testing
-$ \l    // list your saved databases
-$ \q    // exit psql 
-$ knex migrate:latest    // run the latest migrations to create table schema for databases
-$ knex seed:run    // seed your databases with (US Music Festivals) data for use in app 
+$ psql      // open psql in your terminal
+$ CREATE DATABASE us_music_festivals      // create a new database 
+$ CREATE DATABASE us_music_festivals_tests      // create a new database for testing
+$ \l      // list your saved databases
+$ \q      // exit psql 
+$ knex migrate:latest      // run the latest migrations to create table schema for databases
+$ knex seed:run      // seed your databases with (US Music Festivals) data for use in app 
 ```
 
 In order to see tests, you must stop runnning the server. Type these commands in your local BYOB repo: 
 ```
 Start Running Tests
 
-$ cmd C    // stop the execution of the server
-$ npm test    // start running the testing suite 
+$ cmd C      // stop the execution of the server
+$ npm test      // start running the testing suite 
 ```
 
 # TROUBLESHOOTING

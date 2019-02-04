@@ -4,7 +4,7 @@ We appreciate pull requests from anybody who wants to help! Check out our list o
 
 # Set Up
 
-Please follow the steps in the [SETUP.md](BYOB/SETUP.md) file to get app running locally on your machine. 
+Please follow the steps in the [SETUP](https://github.com/ashtonkbailey/BYOB/SETUP.md)  file to get app running locally on your machine. 
 
 This guide assumes that the git remote name of the main repo is ```upstream``` and that your fork is named ```origin```. 
 
@@ -19,13 +19,13 @@ Make any changes you would like to add to the codebase. We use TDD (test driven 
 ```
 Start Running Tests
 
-$ cmd C    // stop the execution of the server (if applicable)
-$ npm test    // start running the testing suite 
+$ cmd C      // stop the execution of the server (if applicable)
+$ npm test      // start running the testing suite 
 ```
 
 Try to get any tests not passing to green! Once your tests are passing you can commit your changes. On your local machine type: 
 ```
-$ git add .    // stages all your contributions to be commited
+$ git add .      // stages all your contributions to be commited
 $ git commit -m "Add a concise commit message describing your change here"
 $ git push origin your-branch-name
 ```
