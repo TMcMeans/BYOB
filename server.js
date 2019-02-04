@@ -232,8 +232,6 @@ app.delete('/api/v1/festivals/:festivalID', (request, response) => {
     })
 });
 
-// write endpoint to query states for a certain number of festivals (>5 or <10 or something)
-
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`)
 });
