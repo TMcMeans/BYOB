@@ -4,7 +4,7 @@ We appreciate pull requests from anybody who wants to help! Check out our list o
 
 # Set Up
 
-Please follow the steps in the (SETUP.md)[https://github.com/ashtonkbailey/BYOB/SETUP.md] file to get app running locally on your machine. 
+Please follow the steps in the [SETUP.md](BYOB/SETUP.md) file to get app running locally on your machine. 
 
 This guide assumes that the git remote name of the main repo is ```upstream``` and that your fork is named ```origin```. 
 
