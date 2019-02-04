@@ -190,8 +190,8 @@ For testing:
 2. Check out our list of github issues [here](https://github.com/ashtonkbailey/BYOB/issues). Please use these issues as a helpful guidance for any contributions you would like to make. 
 
 3. Send a pull request via Github: 
-  - Checkout to a new branch
   - Add a forked version of this repo as your remote
+  - Checkout to a new branch
   - Push up your contribution to your forked repo
   - Submit a **pull request** to the original repo
   - Include a brief, but concise commit message detailing the changes you have made (include an issue # if applicable)
