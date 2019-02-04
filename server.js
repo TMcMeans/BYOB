@@ -16,7 +16,6 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/states', (request, response) => {
-  // get all states
 
   database('states').select()
     .then((states) => {
@@ -28,14 +27,12 @@ app.get('/api/v1/states', (request, response) => {
 });
 
 app.post('/api/v1/states', (request, response) => {
-  //Create a state
   const state = request.body;
 
   let result = ['state', 'number_of_music_festivals', 'major_airport', 'tourism_website'].every((prop) => {
     return request.body.hasOwnProperty(prop);
   })
 
-  //happy path
   if (result) {
     database('states').insert(state, 'id')
       .then((state) => {
@@ -45,7 +42,6 @@ app.post('/api/v1/states', (request, response) => {
         response.status(500).json({ error })
       })
   } else {
-    //sad path
     response.status(422).send({
       error: 'You are missing data! Expected format: {  state: <string>, number_of_music_festivals: <number>, major_airport: <string>, tourism_website: <string> }'
     })
@@ -53,7 +49,6 @@ app.post('/api/v1/states', (request, response) => {
 });
 
 app.get('/api/v1/festivals', (request, response) => {
-  // get all festivals
   database('festivals').select()
     .then((festivals) => {
       response.status(200).json(festivals)
@@ -64,24 +59,22 @@ app.get('/api/v1/festivals', (request, response) => {
 });
 
 app.post('/api/v1/festivals', (request, response) => {
-  //Post a festival to all festivals 
   const festival = request.body;
 
   let result = ['festival_name', 'start_end_dates', 'city', 'image', 'state_id'].every((prop) => {
     return request.body.hasOwnProperty(prop);
   })
 
-  //happy path
   if (result) {
     database('festivals').insert(festival, 'id')
       .then((festival) => {
         response.status(201).json({ id: festival[0] });
       })
       .catch((error) => {
+
         response.status(500).json({ error })
       })
   } else {
-    //sad path
     response.status(422).send({
       error: 'You are missing data! Expected format: { festival_name: <string>, start_end_dates: <string>, city: <string>, image: <string>, state_id: <number> }'
     })
@@ -89,7 +82,6 @@ app.post('/api/v1/festivals', (request, response) => {
 })
 
 app.get('/api/v1/states/:stateID/festivals', (request, response) => {
-  // get all festivals in a given state
   database('festivals').where('state_id', request.params.stateID).select()
     .then(festivals => {
       if (festivals.length) {
@@ -125,7 +117,6 @@ app.get('/api/v1/states/:stateID', (request, response) => {
 
 
 app.put('/api/v1/states/:stateID', (request, response) => {
-  // update a state by id
   const { stateID } = request.params;
   const updatedState = request.body;
   let result = ['state', 'number_of_music_festivals', 'major_airport', 'tourism_website'].every((prop) => {
@@ -133,7 +124,6 @@ app.put('/api/v1/states/:stateID', (request, response) => {
   });
 
   if (result) {
-    // happy
     database('states').where('id', stateID).update(updatedState)
       .then(state => {
         response.status(200).json(`Successfully updated state with id of ${stateID}`)
@@ -142,7 +132,6 @@ app.put('/api/v1/states/:stateID', (request, response) => {
         response.status(404).json({ error: `State with id of ${stateID} is not found` })
       })
   } else {
-    //sad path
     response.status(422).send({
       error: 'You are missing data! Expected format: {  state: <string>, number_of_music_festivals: <number>, major_airport: <string>, tourism_website: <string> }'
     })
@@ -150,7 +139,6 @@ app.put('/api/v1/states/:stateID', (request, response) => {
 });
 
 app.delete('/api/v1/states/:stateID', (request, response) => {
-  // delete a state by id
   const { stateID } = request.params;
 
   database('festivals')
@@ -169,7 +157,6 @@ app.delete('/api/v1/states/:stateID', (request, response) => {
       }
     })
     .catch((err) => {
-      // console.log(response)
       response.status(500).json({
         error: `Internal server error`
       })
@@ -177,7 +164,6 @@ app.delete('/api/v1/states/:stateID', (request, response) => {
 });
 
 app.get('/api/v1/festivals/:festivalID', (request, response) => {
-  // get a festival by id
   const { festivalID } = request.params;
 
   database('festivals').where('id', festivalID).select()
@@ -196,7 +182,6 @@ app.get('/api/v1/festivals/:festivalID', (request, response) => {
 });
 
 app.put('/api/v1/festivals/:festivalID', (request, response) => {
-  // update a festival by id
   const { festivalID } = request.params;
   const updatedFestival = request.body;
   let result = ['festival_name', 'start_end_dates', 'city', 'image'].every((prop) => {
@@ -204,7 +189,6 @@ app.put('/api/v1/festivals/:festivalID', (request, response) => {
   });
 
   if (result) {
-    // happy
     database('festivals').where('id', festivalID).update(updatedFestival)
       .then(festival => {
         response.status(200).json(`Successfully updated festival with id of ${festivalID}`)
@@ -213,7 +197,6 @@ app.put('/api/v1/festivals/:festivalID', (request, response) => {
         response.status(404).json({ error: `Festival with id of ${festivalID} is not found` })
       })
   } else {
-    //sad path
     response.status(422).send({
       error: 'You are missing data! Expected format: {  festival_name: <string>, start_end_dates: <string>, city: <string>, image: <string> }'
     })
@@ -221,7 +204,6 @@ app.put('/api/v1/festivals/:festivalID', (request, response) => {
 });
 
 app.delete('/api/v1/festivals/:festivalID', (request, response) => {
-  // delete a festival by id
   const { festivalID } = request.params;
 
   database('festivals')

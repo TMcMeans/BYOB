@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'test';
+require('events').EventEmitter.prototype._maxListeners = 100;
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -36,15 +37,21 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
-  beforeEach((done) => {
 
-    database.migrate.rollback()
-      .then(() => database.migrate.latest())
-      .then(() => database.seed.run())
+  before(done => {
+    database.migrate.latest()
       .then(() => done())
-  });
+  })
 
   describe('/api/v1/states', () => {
+
+    beforeEach((done) => {
+      database.migrate.rollback()
+        .then(() => database.migrate.latest())
+        .then(() => database.seed.run())
+        .then(() => done())
+    });
+
     it('GET should return all states', done => {
       chai.request(server)
         .get('/api/v1/states')
@@ -95,6 +102,14 @@ describe('API Routes', () => {
 
 
   describe('/api/v1/festivals', () => {
+
+    beforeEach((done) => {
+      database.migrate.rollback()
+        .then(() => database.migrate.latest())
+        .then(() => database.seed.run())
+        .then(() => done())
+    });
+
     it('GET should return all festivals', done => {
       chai.request(server)
         .get('/api/v1/festivals')
@@ -110,7 +125,7 @@ describe('API Routes', () => {
     });
 
     //SKIPPED TEST
-    it.skip('POST should create a festival', done => {
+    it('POST should create a festival', done => {
       chai.request(server)
         .post('/api/v1/festivals')
         .send({
@@ -147,6 +162,14 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/states/:stateID/festivals', () => {
+
+    beforeEach((done) => {
+      database.migrate.rollback()
+        .then(() => database.migrate.latest())
+        .then(() => database.seed.run())
+        .then(() => done())
+    });
+
     it('GET should return all festivals by state', done => {
       chai.request(server)
         .get('/api/v1/states/1/festivals')
@@ -173,6 +196,14 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/states/:stateID', () => {
+
+    beforeEach((done) => {
+      database.migrate.rollback()
+        .then(() => database.migrate.latest())
+        .then(() => database.seed.run())
+        .then(() => done())
+    });
+
     it('GET should return a state by ID', done => {
       chai.request(server)
         .get('/api/v1/states/1')
@@ -242,9 +273,17 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/festivals/:festivalID', () => {
+
+    beforeEach((done) => {
+      database.migrate.rollback()
+        .then(() => database.migrate.latest())
+        .then(() => database.seed.run())
+        .then(() => done())
+    });
+
     it('GET should return a festival by id', done => {
       chai.request(server)
-        .get('/api/v1/festivals/1')
+        .get('/api/v1/festivals/4')
         .end((err, response) => {
           response.should.have.status(200);
           response.body.should.be.a('array');
@@ -291,10 +330,10 @@ describe('API Routes', () => {
 
     it('should DELETE a festival by id', done => {
       chai.request(server)
-        .delete('/api/v1/festivals/1')
+        .delete('/api/v1/festivals/4')
         .end((err, response) => {
           response.should.have.status(202);
-          response.body.should.equal('Festival: 1 successfully deleted')
+          response.body.should.equal('Festival: 4 successfully deleted')
           done();
         })
     });
@@ -310,4 +349,5 @@ describe('API Routes', () => {
 
     });
   })
+
 })
