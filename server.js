@@ -105,6 +105,24 @@ app.get('/api/v1/states/:stateID/festivals', (request, response) => {
     })
 });
 
+app.get('/api/v1/states/:stateID', (request, response) => {
+  const { stateID } = request.params;
+
+  database('states').where('id', stateID).select()
+    .then(state => {
+      if (state) {
+        response.status(200).json(state)
+      } else {
+        response.status(404).json({
+          error: `Could not find state with id of ${request.params.stateID}`
+        })
+      }
+    })
+    .catch((error) => {
+      response.status(500).json({ error })
+    })
+})
+
 
 app.put('/api/v1/states/:stateID', (request, response) => {
   // update a state by id
