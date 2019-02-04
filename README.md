@@ -3,30 +3,6 @@
 
 Are you building a tourism, vacation or music events/performances app? This API allows you to find data on all major 2019 music festivals happening in over 20 states. Data is stored with a PostgresSQL database and the backend is built with Node.js, Express and Knex.js. 
 
-## How to Use: 
----
-
-**Install and Start the Server**
-
-1. Clone down this repo
-2. Type **npm install** in your terminal (CL)
-3. Type **npm start** 
-
-
-**Create a Postgres Database and Run Migrations**
-
-1. In your terminal (CL), type psql 
-2. Type **CREATE DATABASE** us_music_festivals
-3. Type **\q** (to exit psql)
-4. Type **knex migrate:latest**
-5. Type **knex seed:run** 
-
-
-**Testing**
-
-1. To test, type **npm test** in your terminal (CL)
-
-
 ## API Endpoints 
 ---
 

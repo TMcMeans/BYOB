@@ -8,7 +8,6 @@ const server = require('../server.js');
 const config = require('../knexfile')['test'];
 const database = require('knex')(config);
 
-
 // const states = require('../data/states.js');
 // const festivals = require('../data/festivals.js');
 
