@@ -32,7 +32,7 @@ exports.seed = function (knex, Promise) {
           .then(state => {
             return knex('festivals').insert([
               {
-                id: 1,
+                id: 4,
                 festival_name: 'Arizona Roots',
                 start_end_dates: '2/9/19-2/10/19',
                 city: 'Chandler',
