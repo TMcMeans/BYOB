@@ -15,14 +15,25 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/states', (request, response) => {
+  const stateID = request.query.state_id
 
-  database('states').select()
-    .then((states) => {
-      response.status(200).json(states)
-    })
-    .catch((error) => {
-      response.status(500).json({ error });
-    })
+  if (stateID) {
+    database('states').where('id', stateID)
+      .then(state => {
+        response.status(200).json(state)
+      })
+      .catch(error => {
+        response.status(500).json({ error })
+      })
+  } else {
+    database('states').select()
+      .then((states) => {
+        response.status(200).json(states)
+      })
+      .catch((error) => {
+        response.status(500).json({ error });
+      })    
+  }
 });
 
 app.post('/api/v1/states', (request, response) => {
