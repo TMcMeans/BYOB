@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+ - "node"
+services:
+ - postgresql
+before_script:
+ - psql -c 'CREATE DATABASE us_music_festivals_tests;' -U postgres
+
+notifications:
+ email: false

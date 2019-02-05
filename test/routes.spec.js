@@ -124,7 +124,7 @@ describe('API Routes', () => {
     });
 
     //SKIPPED TEST
-    it('POST should create a festival', done => {
+    it.skip('POST should create a festival', done => {
       chai.request(server)
         .post('/api/v1/festivals')
         .send({
