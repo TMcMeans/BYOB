@@ -1,10 +1,15 @@
 language: node_js
 node_js:
- - "node"
+- node
 services:
- - postgresql
+- postgresql
 before_script:
- - psql -c 'CREATE DATABASE us_music_festivals_tests;' -U postgres
-
+- psql -c 'CREATE DATABASE us_music_festivals_tests;' -U postgres
 notifications:
- email: false
+  email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: Ex+FoU2DcgvW57llwIWaof9uYf0yO97KkwsRuh3h5zUPqqBqm9LybUHpSWHOXhKI2A3flO35iQ4j7OxdZfh5SxuQ4iu4E016kCAXbzQOPia0VjpLzYP8m6uhhI9vVLSVCmA/o9uVXYKjAA2iuQrmPV2dFmcW+nHdJ8jmRmHkL8uv+fHVGgmhl52bYs3LvT2yXsP5IaSeKaSZtwKackkHRUH19GsYL+EfeD17ZdghUTNO5WIVHq4EQILChT9a/D0kYUqudmBY+04wDXfIF/IOh9bc/CKkE7ZTo5nZUogRoe4kssDTIl7fbxRBYhnDa3BfhLtxBf0ILEyWyXgt9n0lao+6IsG5BwitqoBran9MmngEEg78UaoIoTdrydEXh6asLHG/khj7DTwRcuGYwn7A3l3fo9SdcZRZ4tb18HntJ/EWOCcQpit1DcimZI4uePabD+PUYhxEgSNWo4Wvd16xNxhBHgs1ojAOtQMMnw5GdnxupZF+7ly/xjiYPxeD+W407PBfF8V2yjx0Bp0EOaRVTd+R89QCzrsWarH2g14fYacubDlp6tKtyyaheGq3OQOvaumOULvwBn/9k4jIym8VyvxynfPBBarkAPW+aomjvtn3+ADEKS2dr91Y0HTllE5EJYoIZ+v1/KSEbUBKvstnoMyzo7JaeDhwaXj+Rwmpd/U=
+  app: byob-us-music-festivals
+  skip_cleanup: true
