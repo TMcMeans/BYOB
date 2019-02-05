@@ -65,6 +65,18 @@ describe('API Routes', () => {
         })
     });
 
+    it('GET with query should return state by ID', done => {
+      chai.request(server)
+        .get('/api/v1/states?state_id=1')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.body.should.be.a('array');
+          response.body[0].should.have.property('id');
+          response.body[0].id.should.equal(1);
+          done();
+        })
+    });
+
     it('POST should create a new state', done => {
       chai.request(server)
         .post('/api/v1/states')
