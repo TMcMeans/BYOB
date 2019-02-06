@@ -4,11 +4,13 @@ const database = require('knex')(config);
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
 
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'US Music Festivals API';
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (request, response) => {
   response.send(`${app.locals.title}`)
